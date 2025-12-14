@@ -3,11 +3,15 @@ from random import random
 import pygame
 import sys
 
-CUBE_CHAOTIC_V = 2
+CUBE_CHAOTIC_V = 1.4
 CUBE_USER_V = 20
 
 
 class Cube:
+
+    @classmethod
+    def get_total_cubes_amount(cls) -> int:
+        return len(cls.all_cubes)
 
     @classmethod
     def generate_cubes(cls, map_width, map_height, n_cubes):
@@ -35,7 +39,6 @@ class Cube:
     def change_active_cube(cls):
         cls.active_cube = (cls.active_cube + 1) % len(cls.all_cubes)
 
-
     @classmethod
     def handle_keys(cls, keys):
         if keys[pygame.K_LEFT]:
@@ -49,6 +52,13 @@ class Cube:
         # if keys[pygame.K_SPACE]:
         #     print(123, cls.active_cube, len(cls.all_cubes))
         #     cls.active_cube = (cls.active_cube + 1) % len(cls.all_cubes)
+
+    @classmethod
+    def is_continue_condition_all(cls, screen_w, screen_h):
+        for i in cls.all_cubes:
+            if not i.is_continue_condition(screen_w, screen_h):
+                return False
+        return True
 
     def __init__(self, pos_x, pos_y, v_x, v_y):
         self.pos_x = pos_x
@@ -71,3 +81,9 @@ class Cube:
         if Cube.get_active_cube() == self:
             color = "blue"
         pygame.draw.rect(screen, color, rect1)
+
+    def is_continue_condition(self, screen_w, screen_h) -> bool:
+        if self.pos_x+40 > screen_w or self.pos_y+40 > screen_h or self.pos_x < 0 or self.pos_y < 0:
+            return False
+        else:
+            return True
