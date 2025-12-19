@@ -4,6 +4,8 @@ import pygame
 import sys
 
 CUBE_CHAOTIC_V = 1.4
+
+
 CUBE_USER_V = 20
 
 
@@ -33,11 +35,24 @@ class Cube:
 
     @classmethod
     def get_active_cube(cls):
+        #print(cls.all_cubes[cls.active_cube].v_x)
         return cls.all_cubes[cls.active_cube]
+
+    @classmethod
+    def change_v(cls, new_v):
+
+        #cls.all_cubes.remove(cls.get_active_cube())
+        v_x_ = random() * 2 * (CUBE_CHAOTIC_V+new_v) - CUBE_CHAOTIC_V - new_v
+        v_y_ = random() * 2 * (CUBE_CHAOTIC_V+new_v) - CUBE_CHAOTIC_V - new_v
+
+        cls.all_cubes[cls.active_cube-1].v_x = v_x_
+        cls.all_cubes[cls.active_cube-1].v_y = v_y_
 
     @classmethod
     def change_active_cube(cls):
         cls.active_cube = (cls.active_cube + 1) % len(cls.all_cubes)
+
+
 
     @classmethod
     def handle_keys(cls, keys):
