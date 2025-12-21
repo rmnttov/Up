@@ -17,7 +17,7 @@ jobs:
           installer-parallel: true
       - name: Install poetry packages
         run: |
-          poetry install
+          poetry install --no-root
       - name: Run QA
         run: |
           poetry run flake8 .
