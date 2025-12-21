@@ -10,14 +10,17 @@ PERIOD = 10
 MAXIMUM_CUBES_AMOUNT = 6
 SCORE_FILE = 'score.txt'
 
+
 def get_next_period():
     yield 15
     yield 10
     yield 10
 
-def get_next_v(): #генератор для постепенного ускорения
+
+def get_next_v():  # генератор для постепенного ускорения
     for i in range(10000000):
-        yield float(i/20)
+        yield float(i / 20)
+
 
 def get_old_score() -> float:
     if os.path.exists(SCORE_FILE):
@@ -31,6 +34,7 @@ def try_save_score(old_score: float, new_score: float):
     if old_score < new_score:
         with open(SCORE_FILE, 'w') as f:
             f.write(str(new_score))
+
 
 # Initialize Pygame
 pygame.init()
@@ -57,7 +61,7 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 Cube.change_active_cube()
-                Cube.change_v(next(v_generator))#Изменение скорости и направления
+                Cube.change_v(next(v_generator))  # Изменение скорости и направления
             if event.key == pygame.K_q:
                 try_save_score(old_score, game_time)
                 running = False
@@ -71,7 +75,6 @@ while running:
     for q in Cube.all_cubes:
         q.draw_cube(screen)
 
-
     is_continue = Cube.is_continue_condition_all(SCREEN_WIDTH, SCREEN_HEIGHT)
     if is_continue:
         keys = pygame.key.get_pressed()
@@ -81,8 +84,8 @@ while running:
         # clock.tick(60) limits FPS to 60
         dt = clock.tick(60) / 1000
         game_time += dt
-        #print(game_time)
-        #print(Cube.is_continue_condition_all(SCREEN_WIDTH, SCREEN_HEIGHT))
+        # print(game_time)
+        # print(Cube.is_continue_condition_all(SCREEN_WIDTH, SCREEN_HEIGHT))
     else:
         font1 = pygame.font.SysFont('freesanbold.ttf', 50)
         text_your_time = font1.render(f'Ты продержался {game_time:.2f} сек.', True, (255, 255, 255))
@@ -106,7 +109,6 @@ while running:
     if math.floor(game_time) == cube_create_time and Cube.get_total_cubes_amount() <= MAXIMUM_CUBES_AMOUNT:
         Cube.add_cube(SCREEN_WIDTH, SCREEN_HEIGHT)
         cube_create_time += next(period_generator)
-
 
 # Quit Pygame
 pygame.quit()

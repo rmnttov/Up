@@ -1,4 +1,3 @@
-
 def next_period_generator():
     yield 4
     print('qweqwe')
@@ -7,9 +6,8 @@ def next_period_generator():
     for i in range(10000):
         yield i
 
+
 [4, 5, 10]
-
-
 
 g = next_period_generator()
 print(next(g))
