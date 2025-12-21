@@ -11,3 +11,9 @@ poetry install
 ```shell
 poetry run python src/main.py
 ```
+
+
+Линтинг:
+```shell
+poetry run flake8 .
+```

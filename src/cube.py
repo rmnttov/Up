@@ -1,10 +1,8 @@
 from random import random
 
 import pygame
-import sys
 
 CUBE_CHAOTIC_V = 1.4
-
 
 CUBE_USER_V = 20
 
@@ -35,24 +33,22 @@ class Cube:
 
     @classmethod
     def get_active_cube(cls):
-        #print(cls.all_cubes[cls.active_cube].v_x)
+        # print(cls.all_cubes[cls.active_cube].v_x)
         return cls.all_cubes[cls.active_cube]
 
     @classmethod
     def change_v(cls, new_v):
 
-        #cls.all_cubes.remove(cls.get_active_cube())
-        v_x_ = random() * 2 * (CUBE_CHAOTIC_V+new_v) - CUBE_CHAOTIC_V - new_v
-        v_y_ = random() * 2 * (CUBE_CHAOTIC_V+new_v) - CUBE_CHAOTIC_V - new_v
+        # cls.all_cubes.remove(cls.get_active_cube())
+        v_x_ = random() * 2 * (CUBE_CHAOTIC_V + new_v) - CUBE_CHAOTIC_V - new_v
+        v_y_ = random() * 2 * (CUBE_CHAOTIC_V + new_v) - CUBE_CHAOTIC_V - new_v
 
-        cls.all_cubes[cls.active_cube-1].v_x = v_x_
-        cls.all_cubes[cls.active_cube-1].v_y = v_y_
+        cls.all_cubes[cls.active_cube - 1].v_x = v_x_
+        cls.all_cubes[cls.active_cube - 1].v_y = v_y_
 
     @classmethod
     def change_active_cube(cls):
         cls.active_cube = (cls.active_cube + 1) % len(cls.all_cubes)
-
-
 
     @classmethod
     def handle_keys(cls, keys):
@@ -98,7 +94,7 @@ class Cube:
         pygame.draw.rect(screen, color, rect1)
 
     def is_continue_condition(self, screen_w, screen_h) -> bool:
-        if self.pos_x+40 > screen_w or self.pos_y+40 > screen_h or self.pos_x < 0 or self.pos_y < 0:
+        if self.pos_x + 40 > screen_w or self.pos_y + 40 > screen_h or self.pos_x < 0 or self.pos_y < 0:
             return False
         else:
             return True
